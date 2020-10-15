@@ -19,8 +19,7 @@ fs.access("./.env", fs.constants.F_OK | fs.constants.R_OK, (err) => {
         }
 
         //create a new file
-        let content = `API_KEY=${key}`;
-        fs.writeFileSync(".env", content);
+        fs.writeFileSync(".env", `API_KEY=${key}`);
         console.log("Successfully setup API key");
     }
 
@@ -67,7 +66,7 @@ function GetProducts(){
     request.open("GET", "https://api.hypixel.net/skyblock/bazaar?key=" + process.env.API_KEY, false);
     request.send();
 
-    //check if we have recieved the pro
+    //check if we have recieved the products
     if(request.status == 200){
         res = JSON.parse(request.responseText); //parse the response to JSON
         productList = Object.keys(res.products); //get a list of all the products (cause hypixel decided to not use an array fsr)
@@ -133,5 +132,4 @@ function printProducts(products){
     });
     //close the "table"
     console.log("--------------------------------------------------------------------------");
-
 }
